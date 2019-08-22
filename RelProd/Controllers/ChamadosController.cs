@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RelProd.Models;
 
 namespace RelProd.Models
 {
@@ -59,6 +60,7 @@ namespace RelProd.Models
                 _context.Add(chamados);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+			
             }
             return View(chamados);
         }
@@ -77,6 +79,12 @@ namespace RelProd.Models
                 return NotFound();
             }
             return View(chamados);
+
+
+
+		
+
+
         }
 
         // POST: Chamados/Edit/5
@@ -147,5 +155,16 @@ namespace RelProd.Models
         {
             return _context.Chamados.Any(e => e.Id == id);
         }
+
+		public async Task<IActionResult> Add( Chamados TiposChamados)
+		{
+			if (ModelState.IsValid)
+			{
+				Chamados chamados = new Chamados
+				{
+					
+				}
+			}
+		}
     }
 }

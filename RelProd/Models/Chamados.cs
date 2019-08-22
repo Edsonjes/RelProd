@@ -10,7 +10,8 @@ namespace RelProd.Models
 	public class Chamados
 	{
 		public int Id { get; set; }
-	    public Status Status { get; set; }
+		public Status Status { get; set; } 
+		public List<SelectListItem> TipoStatus { get; set; }
 		public int idStatus { get; set; }
 	    public string Setor { get; set; }
 		public string Responsavel { get; set; }
@@ -19,39 +20,41 @@ namespace RelProd.Models
 
 		public Chamados ()
 		{
+			TipoStatus = new List<SelectListItem>();
 
+			TipoStatus.Add(new SelectListItem
+			{
+				Value = ((int)Status.Aberto).ToString(),
+				Text = Status.Aberto.ToString()
+			});
+
+			TipoStatus.Add(new SelectListItem
+			{
+				Value = ((int)Status.Encerrado).ToString(),
+				Text = Status.Encerrado.ToString()
+			});
+
+			TipoStatus.Add(new SelectListItem
+			{
+				Value = ((int)Status.EmAtendimento).ToString(),
+				Text = Status.EmAtendimento.ToString()
+			});
 		}
 
-		public Chamados(int id,   string setor, Status status,  string responsavel, DateTime data, DateTime hora)
+		public Chamados(int id,   string setor,  string responsavel, DateTime data, DateTime hora)
 		{
 			Id = id;
 			Setor = setor;
-			Status = status;
 			Responsavel = responsavel;
 			Data = data;
 			this.hora = hora;
 
 						
 		}
+
+
 		 
-						
-		public List <Chamados> DropDownStatus()
-		{
-			
-
-			var item = new List<Chamados>();
-			foreach (int s in Status.GetValues(typeof(Status)))
-			{
-				item.Add(new Chamados
-				{
-			      Status = Status
-				 
-
-				 
-				});
-			}
-			return item;
-		}
+	
 
 
 	}
