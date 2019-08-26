@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RelProd.Models;
+using RelProd.Models.Enuns;
 
 namespace RelProd.Models
 {
@@ -21,8 +22,15 @@ namespace RelProd.Models
         // GET: Chamados
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Chamados.ToListAsync());
-        }
+           
+
+			
+			
+
+			return View(await _context.Chamados.ToListAsync());
+
+
+		}
 
         // GET: Chamados/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -45,7 +53,25 @@ namespace RelProd.Models
         // GET: Chamados/Create
         public IActionResult Create()
         {
-            return View();
+
+			var TipoStatus = new List<SelectListItem>();
+
+			TipoStatus.Add(new SelectListItem
+			{
+				Text = "Selecionar",
+				Value = ""
+			});
+
+			foreach (Status i in Enum.GetValues(typeof(Status)))
+			{
+				TipoStatus.Add(new SelectListItem { Text = Enum.GetName(typeof(Status), i), Value = i.ToString() });
+			}
+			ViewBag.TipoStatus = TipoStatus;
+
+
+
+
+			return View();
         }
 
         // POST: Chamados/Create
@@ -53,9 +79,13 @@ namespace RelProd.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Status,Setor,Responsavel,Data,hora")] Chamados chamados)
+        public async Task<IActionResult> Create([Bind("Id,Status,Setor,Responsavel,Data,Hora,Solicitante,Descricao")] Chamados chamados)
         {
-            if (ModelState.IsValid)
+
+
+
+
+			if (ModelState.IsValid)
             {
                 _context.Add(chamados);
                 await _context.SaveChangesAsync();
@@ -78,7 +108,24 @@ namespace RelProd.Models
             {
                 return NotFound();
             }
-            return View(chamados);
+
+
+			var TipoStatus = new List<SelectListItem>();
+
+			TipoStatus.Add(new SelectListItem
+			{
+				Text = "Selecionar",
+				Value = ""
+			});
+
+			foreach (Status i in Enum.GetValues(typeof(Status)))
+			{
+				TipoStatus.Add(new SelectListItem { Text = Enum.GetName(typeof(Status), i), Value = i.ToString() });
+			}
+			ViewBag.TipoStatus = TipoStatus;
+
+
+			return View(chamados);
 
 
 
@@ -92,7 +139,7 @@ namespace RelProd.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,Responsavel,Data,hora")] Chamados chamados)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,Responsavel,Data,Hora,Solicitante,Descricao")] Chamados chamados)
         {
             if (id != chamados.Id)
             {
@@ -156,15 +203,6 @@ namespace RelProd.Models
             return _context.Chamados.Any(e => e.Id == id);
         }
 
-		public async Task<IActionResult> Add( Chamados TiposChamados)
-		{
-			if (ModelState.IsValid)
-			{
-				Chamados chamados = new Chamados
-				{
-					
-				}
-			}
-		}
+		
     }
 }
