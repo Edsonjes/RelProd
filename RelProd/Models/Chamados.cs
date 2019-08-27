@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,7 +14,9 @@ namespace RelProd.Models
 		public Status Status { get; set; } 
 		 public string Setor { get; set; }
 		public string Responsavel { get; set; }
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime Data { get; set; }
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
 		public DateTime Hora { get; set; }
 	   public string Solicitante { get; set; }
 		public string Descricao { get; set; }

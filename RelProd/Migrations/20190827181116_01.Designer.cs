@@ -9,8 +9,8 @@ using RelProd.Models;
 namespace RelProd.Migrations
 {
     [DbContext(typeof(RelProdContext))]
-    [Migration("20190807170242_01-Chamados")]
-    partial class _01Chamados
+    [Migration("20190827181116_01")]
+    partial class _01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,17 +26,37 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Data");
 
+                    b.Property<string>("Descricao");
+
+                    b.Property<DateTime>("Hora");
+
                     b.Property<string>("Responsavel");
 
                     b.Property<string>("Setor");
 
-                    b.Property<int>("Status");
+                    b.Property<string>("Solicitante");
 
-                    b.Property<DateTime>("hora");
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
                     b.ToTable("Chamados");
+                });
+
+            modelBuilder.Entity("RelProd.Models.Usuarios", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<int>("Senha");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
                 });
 #pragma warning restore 612, 618
         }
