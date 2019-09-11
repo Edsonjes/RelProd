@@ -1,0 +1,27 @@
+﻿@model RelProd.Models.Chamados
+
+@{
+	ViewData["Title"] = "Relátorio";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="row" style="width:auto;">
+	<div class="col-md-4" style="width:auto;">
+		<form asp-action="Relatorio">
+			<div class="form-group">
+				<label  class="control-label">De</label>
+				<input asp-for="Data" class="form-control" />
+			</div>
+			<div  class="form-group">
+				
+			</div>
+			<div class="form-group" style="margin-left:400px; margin-top:-86px">
+				<label  class="control-label"> Até</label>
+				<input asp-for="Data" class="form-control" style="width:350px;" />
+			</div>
+        </form>
+	</div>
+</div>
+

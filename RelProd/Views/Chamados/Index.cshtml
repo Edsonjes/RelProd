@@ -7,7 +7,9 @@
 <h1>Demandas</h1>
 
 <p>
-    <a asp-action="Create">Criar uma nova</a>
+	<a asp-action="Create">Criar uma nova</a> /
+	<a asp-action="Relatorio">Relátorio</a> 
+	
 </p>
 <table class="table">
     <thead>
@@ -44,9 +46,9 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.Setor)
 			</td>
-			<td>
+			@*<td>
 				@Html.DisplayFor(modelItem => item.Responsavel)
-			</td>
+			</td>*@
 			<td>
 				@Html.DisplayFor(modelItem => item.Solicitante)
 			</td>

@@ -9,7 +9,7 @@ using RelProd.Models;
 namespace RelProd.Migrations
 {
     [DbContext(typeof(RelProdContext))]
-    [Migration("20190827181116_01")]
+    [Migration("20190911204638_01")]
     partial class _01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Hora");
 
-                    b.Property<string>("Responsavel");
+                    b.Property<int?>("ResponsavelId");
 
                     b.Property<string>("Setor");
 
@@ -39,6 +39,8 @@ namespace RelProd.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelId");
 
                     b.ToTable("Chamados");
                 });
@@ -57,6 +59,13 @@ namespace RelProd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("RelProd.Models.Chamados", b =>
+                {
+                    b.HasOne("RelProd.Models.Usuarios", "Responsavel")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelId");
                 });
 #pragma warning restore 612, 618
         }

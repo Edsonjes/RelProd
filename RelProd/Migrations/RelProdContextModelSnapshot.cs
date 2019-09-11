@@ -28,7 +28,7 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Hora");
 
-                    b.Property<string>("Responsavel");
+                    b.Property<int?>("ResponsavelId");
 
                     b.Property<string>("Setor");
 
@@ -37,6 +37,8 @@ namespace RelProd.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelId");
 
                     b.ToTable("Chamados");
                 });
@@ -55,6 +57,13 @@ namespace RelProd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("RelProd.Models.Chamados", b =>
+                {
+                    b.HasOne("RelProd.Models.Usuarios", "Responsavel")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelId");
                 });
 #pragma warning restore 612, 618
         }

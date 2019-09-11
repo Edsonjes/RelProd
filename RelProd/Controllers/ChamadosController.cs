@@ -22,12 +22,12 @@ namespace RelProd.Models
         // GET: Chamados
         public async Task<IActionResult> Index()
         {
-           
 
-			
-			
 
 			return View(await _context.Chamados.ToListAsync());
+			
+
+		
 
 
 		}
@@ -203,6 +203,9 @@ namespace RelProd.Models
             return _context.Chamados.Any(e => e.Id == id);
         }
 
-		
+		public IActionResult Relatorio()
+		{
+			return View();
+		}
     }
 }
