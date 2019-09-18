@@ -1,26 +1,28 @@
 ﻿@model RelProd.Models.Usuarios
 @{
-    ViewData["Title"] = "Login";
+	ViewData["Title"] = "Login";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-	<form asp-action="Login">
+	<div class="col-md-4">
+	<form asp-action="Login" method="post">
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<div class="form-group">
 			<label asp-for="Email" class="control-label"></label>
-			<select asp-for="Email" class="form-control" asp-items="ViewBag.TipoStatus"></select>
+			<input asp-for="Email" class="form-control" id="Email" name="Email" placeholder="Email" required />
 			<span asp-validation-for="Email" class="text-danger"></span>
 		</div>
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<div class="form-group">
 			<label asp-for="Senha" class="control-label"></label>
-			<select asp-for="Senha" class="form-control" asp-items="ViewBag.TipoStatus"></select>
+			<input asp-for="Senha" type="password" id="Senha" name="Senha" placeholder="Senha" required class="form-control" />
 			<span asp-validation-for="Senha" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<input type="submit" value="Entrar" class="btn btn-primary" />
 		</div>
-	</form> 
+	</form>
+		</div>
 </div>
