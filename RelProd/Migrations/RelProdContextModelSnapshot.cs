@@ -28,8 +28,6 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Hora");
 
-                    b.Property<int?>("ResponsavelId");
-
                     b.Property<string>("Setor");
 
                     b.Property<string>("Solicitante");
@@ -37,8 +35,6 @@ namespace RelProd.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ResponsavelId");
 
                     b.ToTable("Chamados");
                 });
@@ -48,6 +44,8 @@ namespace RelProd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ChamadosId");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Nome");
@@ -56,14 +54,16 @@ namespace RelProd.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChamadosId");
+
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("RelProd.Models.Chamados", b =>
+            modelBuilder.Entity("RelProd.Models.Usuarios", b =>
                 {
-                    b.HasOne("RelProd.Models.Usuarios", "Responsavel")
-                        .WithMany()
-                        .HasForeignKey("ResponsavelId");
+                    b.HasOne("RelProd.Models.Chamados")
+                        .WithMany("Responsavel")
+                        .HasForeignKey("ChamadosId");
                 });
 #pragma warning restore 612, 618
         }

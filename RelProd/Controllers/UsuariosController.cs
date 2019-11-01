@@ -4,6 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RelProd.Models;
+using System.Web;
+
+using Microsoft.AspNetCore.Http;
+
+
 
 
 
@@ -13,7 +18,13 @@ namespace RelProd.Controllers
 {
 	public class UsuariosController : Controller
 	{
-		RelProdContext _Ctx;
+	   private readonly RelProdContext _Ctx;
+		public UsuariosController(RelProdContext context)
+		{
+			_Ctx = context;
+		}
+		
+
 		public IActionResult Index()
 		{
 			return View();
@@ -22,13 +33,19 @@ namespace RelProd.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Login( Usuarios Usuario)
 		{
+
+
 			
+
 			var consultaUsuario = _Ctx.Usuarios.Where(u => u.Email == Usuario.Email && u.Senha == Usuario.Senha).FirstOrDefault();
 
 			if ( consultaUsuario != null)
 			{
 
-				Session["UsuarioLogado"] = consultaUsuario.Email;
+
+
+				ViewData.Add("Usuario", consultaUsuario);
+				return Redirect("/Chamados/Index");
 				
 
 
@@ -36,10 +53,12 @@ namespace RelProd.Controllers
 			}
 			else
 			{
-				ViewBag.ErroAutenticacao = "Usuário ou senha invalidos.";
+				ModelState.AddModelError("", "Usuário ou senha ivalidos");
+				return View("Index");
+				
 			}
 
-			return View();
+			
 		}
 	}
 }

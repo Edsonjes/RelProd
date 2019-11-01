@@ -10,10 +10,12 @@ namespace RelProd.Models
 {
 	public class Chamados
 	{
+		
+		
 		public int Id { get; set; }
 		public Status Status { get; set; } 
 		 public string Setor { get; set; }
-		public Usuarios Responsavel { get; set; }
+		public Usuarios Responsavel { get; set; } 
 
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime Data { get; set; }
@@ -29,16 +31,17 @@ namespace RelProd.Models
 			
 		}
 
-		public Chamados(int id, Status status, string setor,Usuarios responsavel, DateTime data, DateTime hora, string solicitante, string descricao)
+		public Chamados(int id, Status status, string setor, DateTime data, DateTime hora, string solicitante, string descricao)
 		{
 			Id = id;
 			Status = status;
 			Setor = setor;
-			Responsavel = responsavel;
-			Data = data;
+		    Data = data;
 			Hora = hora;
 			Solicitante = solicitante;
 			Descricao = descricao;
+
+			
 		}
 	}
 }

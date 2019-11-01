@@ -11,6 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using RelProd.Models;
+using Microsoft.AspNetCore.Session;
+using RelProd.Services;
+
 
 namespace RelProd
 {
@@ -19,6 +22,8 @@ namespace RelProd
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
+
+		
 		}
 
 		public IConfiguration Configuration { get; }
@@ -38,6 +43,10 @@ namespace RelProd
 
 		    services.AddDbContext<RelProdContext>(options =>
 		            options.UseMySql(Configuration.GetConnectionString("RelProdContext"), builder => builder.MigrationsAssembly("RelProd")));
+
+			services.AddMemoryCache();
+			services.AddSession();
+			services.AddScoped<UsuarioServices>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,12 +66,13 @@ namespace RelProd
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			app.UseSession();
 
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Usuarios}/{action=Index}/{id?}");
 			});
 		}
 	}

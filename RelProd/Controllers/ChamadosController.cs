@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RelProd.Models;
 using RelProd.Models.Enuns;
+using RelProd.Controllers;
 
 namespace RelProd.Models
 {
@@ -83,7 +84,7 @@ namespace RelProd.Models
         {
 
 
-
+			
 
 			if (ModelState.IsValid)
             {
@@ -124,6 +125,10 @@ namespace RelProd.Models
 			}
 			ViewBag.TipoStatus = TipoStatus;
 
+			
+			
+		
+		
 
 			return View(chamados);
 

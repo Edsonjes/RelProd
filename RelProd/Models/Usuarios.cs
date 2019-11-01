@@ -10,6 +10,7 @@ namespace RelProd.Models
 		public int Id { get; set; }
 		public string Nome { get; set; }
 		public int Senha { get; set; }
+		
 		public string Email { get; set; }
 
 		public Usuarios ()
@@ -24,5 +25,7 @@ namespace RelProd.Models
 			Senha = senha;
 			Email = email;
 		}
+
+		
 	}
 }

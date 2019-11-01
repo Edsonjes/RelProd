@@ -25,7 +25,8 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="Responsavel" class="control-label"></label>
-				<input asp-for="Responsavel" class="form-control" />
+				@*<input asp-for="Responsavel" class="form-control" />*@
+				<select asp-for="Responsavel" class="form-control"></select>
 				<span asp-validation-for="Responsavel" class="text-danger"></span>
 			</div>
 			<div class="form-group">
