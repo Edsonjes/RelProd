@@ -9,8 +9,8 @@ using RelProd.Models;
 namespace RelProd.Migrations
 {
     [DbContext(typeof(RelProdContext))]
-    [Migration("20191029203003_Relprod01")]
-    partial class Relprod01
+    [Migration("20191112181401_Relprod03")]
+    partial class Relprod03
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,8 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Hora");
 
+                    b.Property<int?>("ResponsavelId");
+
                     b.Property<string>("Setor");
 
                     b.Property<string>("Solicitante");
@@ -37,6 +39,8 @@ namespace RelProd.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelId");
 
                     b.ToTable("Chamados");
                 });
@@ -46,8 +50,6 @@ namespace RelProd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ChamadosId");
-
                     b.Property<string>("Email");
 
                     b.Property<string>("Nome");
@@ -56,16 +58,14 @@ namespace RelProd.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChamadosId");
-
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("RelProd.Models.Usuarios", b =>
+            modelBuilder.Entity("RelProd.Models.Chamados", b =>
                 {
-                    b.HasOne("RelProd.Models.Chamados")
-                        .WithMany("Responsavel")
-                        .HasForeignKey("ChamadosId");
+                    b.HasOne("RelProd.Models.Usuarios", "Responsavel")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelId");
                 });
 #pragma warning restore 612, 618
         }

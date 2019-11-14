@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RelProd.Models;
 
 namespace RelProd.Migrations
 {
     [DbContext(typeof(RelProdContext))]
-    partial class RelProdContextModelSnapshot : ModelSnapshot
+    [Migration("20191104204106_Relpord01")]
+    partial class Relpord01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,17 +30,17 @@ namespace RelProd.Migrations
 
                     b.Property<DateTime>("Hora");
 
-                    b.Property<int?>("ResponsavelId");
-
                     b.Property<string>("Setor");
 
                     b.Property<string>("Solicitante");
 
                     b.Property<int>("Status");
 
+                    b.Property<int?>("UsuarioIdId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ResponsavelId");
+                    b.HasIndex("UsuarioIdId");
 
                     b.ToTable("Chamados");
                 });
@@ -48,6 +50,8 @@ namespace RelProd.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ChamadosId");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Nome");
@@ -56,14 +60,23 @@ namespace RelProd.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChamadosId");
+
                     b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("RelProd.Models.Chamados", b =>
                 {
-                    b.HasOne("RelProd.Models.Usuarios", "Responsavel")
+                    b.HasOne("RelProd.Models.Usuarios", "UsuarioId")
                         .WithMany()
-                        .HasForeignKey("ResponsavelId");
+                        .HasForeignKey("UsuarioIdId");
+                });
+
+            modelBuilder.Entity("RelProd.Models.Usuarios", b =>
+                {
+                    b.HasOne("RelProd.Models.Chamados")
+                        .WithMany("Responsavel")
+                        .HasForeignKey("ChamadosId");
                 });
 #pragma warning restore 612, 618
         }

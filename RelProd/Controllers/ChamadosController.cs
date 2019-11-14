@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using RelProd.Models;
 using RelProd.Models.Enuns;
 using RelProd.Controllers;
+using RelProd.Services;
 
 namespace RelProd.Models
 {
     public class ChamadosController : Controller
     {
         private readonly RelProdContext _context;
+		private readonly UsuarioServices _usuarioServices;
 
-        public ChamadosController(RelProdContext context)
+        public ChamadosController(RelProdContext context, UsuarioServices usuarioService)
         {
             _context = context;
+			_usuarioServices = usuarioService;
         }
 
         // GET: Chamados
@@ -43,6 +46,11 @@ namespace RelProd.Models
 
             var chamados = await _context.Chamados
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+			var UserChamado = chamados.ResponsavelId;
+			 
+			
+			
             if (chamados == null)
             {
                 return NotFound();
@@ -55,7 +63,17 @@ namespace RelProd.Models
         public IActionResult Create()
         {
 
+
+
+
+
 			var TipoStatus = new List<SelectListItem>();
+			
+			
+
+
+
+
 
 			TipoStatus.Add(new SelectListItem
 			{
@@ -126,36 +144,59 @@ namespace RelProd.Models
 			ViewBag.TipoStatus = TipoStatus;
 
 			
+
 			
-		
-		
+
+
+			var Usuario = _usuarioServices.FindAll();
+			 
+			
+			var ListTest = new List<SelectListItem>();
+
+			ListTest.Add(new SelectListItem
+			{
+				Text = "Selecionar",
+				Value = ""
+			});
+
+			foreach (var Item in Usuario)
+			{
+				ListTest.Add(new SelectListItem { Text = Item.Nome, Value = Item.Id.ToString() });
+			}
+			ViewBag.usuarios = ListTest; 
+
 
 			return View(chamados);
 
 
 
-		
 
 
-        }
+
+		}
 
         // POST: Chamados/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,Responsavel,Data,Hora,Solicitante,Descricao")] Chamados chamados)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,ResponsavelId,Data,Hora,Solicitante,Descricao")] Chamados chamados)
         {
             if (id != chamados.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+		
+		
+
+			if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(chamados);
+					
+
+					_context.Update(chamados);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -171,7 +212,9 @@ namespace RelProd.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(chamados);
+			
+
+			return View(chamados);
         }
 
         // GET: Chamados/Delete/5
