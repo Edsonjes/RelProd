@@ -17,9 +17,7 @@ namespace RelProd.Models
 		 public string Setor { get; set; }
 		//public ICollection <Usuarios> Responsavel { get; set; } 
 		public Usuarios Responsavel { get; set; }
-
 		public Nullable<int> ResponsavelId { get; set; } 
-
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime Data { get; set; }
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
@@ -44,6 +42,7 @@ namespace RelProd.Models
 			Solicitante = solicitante;
 			Descricao = descricao;
 			Responsavel = usuario;
+			
 
 			
 		}

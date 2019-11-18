@@ -44,10 +44,11 @@ namespace RelProd.Models
                 return NotFound();
             }
 
-            var chamados = await _context.Chamados
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-			var UserChamado = chamados.ResponsavelId;
+			 
+			var chamados = await _context.Chamados.Include(item => item.Responsavel).FirstOrDefaultAsync(m => m.Id == id);
+		
+			
+			
 			 
 			
 			
@@ -225,7 +226,7 @@ namespace RelProd.Models
                 return NotFound();
             }
 
-            var chamados = await _context.Chamados
+            var chamados = await _context.Chamados.Include(item => item.Responsavel)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (chamados == null)
             {
