@@ -14,7 +14,7 @@ namespace RelProd.Services
 			_ctx = ctx;
 		}
 
-		public List<Usuarios> FindAll()
+		public List <Usuarios> FindAll()
 		{
 			return _ctx.Usuarios.OrderBy(x => x.Nome).ToList();
 		}

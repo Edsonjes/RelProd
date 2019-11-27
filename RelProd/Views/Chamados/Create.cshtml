@@ -22,17 +22,15 @@
 				<input asp-for="Setor" class="form-control" />
 				<span asp-validation-for="Setor" class="text-danger"></span>
 			</div>
-		
 			<div class="form-group">
-				<label asp-for="Data" class="control-label"></label>
-				<input asp-for="Data" class="form-control" />
-				<span asp-validation-for="Data" class="text-danger"></span>
+				<label asp-for="Data" class="control-label"></label> :
+				@DateTime.Today.ToShortDateString()
 			</div>
 			<div class="form-group">
-				<label asp-for="Hora" class="control-label"></label>
-				<input asp-for="Hora" class="form-control" />
-				<span asp-validation-for="Hora" class="text-danger"></span>
+				<label asp-for="Hora" class="control-label"></label> :
+				@DateTime.Now.ToShortTimeString()
 			</div>
+
 			<div class="form-group">
 				<label asp-for="Solicitante" class="control-label"></label>
 				<input asp-for="Solicitante" class="form-control" />

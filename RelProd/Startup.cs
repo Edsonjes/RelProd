@@ -47,6 +47,7 @@ namespace RelProd
 			services.AddMemoryCache();
 			services.AddSession();
 			services.AddScoped<UsuarioServices>();
+			services.AddScoped<BuscaService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

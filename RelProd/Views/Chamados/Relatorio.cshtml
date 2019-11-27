@@ -1,4 +1,4 @@
-﻿@model RelProd.Models.Chamados
+﻿@model IEnumerable< RelProd.Models.Chamados>
 
 @{
 	ViewData["Title"] = "Relátorio";
@@ -9,20 +9,63 @@
 
 <div class="row" style="width:auto;">
 	<div class="col-md-4" style="width:auto;">
-		<form asp-action="Relatorio">
-			<div class="form-group">
-				<label  class="control-label">De</label>
-				<input asp-for="Data" class="form-control" />
+		
+			<form asp-action="Relatorio" class="navbar-for navbar-left" role="search">
+				<div class="form-group">
+					<label class="control-label" for="minDate">De</label>
+					<input type="date" class="form-control" name="minDate" />
+				</div>
+				<div class="form-group">
+
+				</div>
+				<div class="form-group" style="margin-left:400px; margin-top:-86px">
+					<label class="control-label" for="maxDate"> Até</label>
+					<input type="date" class="form-control" name="maxDate" style="width:350px;" />
+				</div>
+				<input type="submit" value="Gerar" class="btn btn-primary" />
+			</form>
+	
+		<div  class="panel-body" >
+			
+			<div class="panel-title" >
+				<h3 class="panel-title"> Total chamados = @Model.Sum(obj => obj.Id).ToString()</h3>
 			</div>
-			<div  class="form-group">
+			
 				
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Solicitante)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Hora)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Data)
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach(var item in Model)
+						{
+						<tr>
+							<td>
+								@Html.DisplayNameFor(ModelItem => item.Solicitante)
+							</td>
+							<td>
+								@Html.DisplayNameFor(ModelItem => item.Hora)
+							</td>
+							<td>
+								@Html.DisplayNameFor(ModelItem => item.Data)
+							</td>
+						</tr>
+						}
+					</tbody>
+				</table>
 			</div>
-			<div class="form-group" style="margin-left:400px; margin-top:-86px">
-				<label  class="control-label"> Até</label>
-				<input asp-for="Data" class="form-control" style="width:350px;" />
-			</div>
-			<input type="submit" value="Gerar"  class="btn btn-primary" />
-        </form>
+
+		</div>
 	</div>
 </div>
 

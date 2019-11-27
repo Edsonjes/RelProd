@@ -10,18 +10,23 @@ using RelProd.Models.Enuns;
 using RelProd.Controllers;
 using RelProd.Services;
 
+
 namespace RelProd.Models
 {
     public class ChamadosController : Controller
     {
         private readonly RelProdContext _context;
 		private readonly UsuarioServices _usuarioServices;
+		private readonly BuscaService _buscaService;
 
-        public ChamadosController(RelProdContext context, UsuarioServices usuarioService)
+	
+
+		public ChamadosController(RelProdContext context, UsuarioServices usuarioService, BuscaService buscaService)
         {
             _context = context;
 			_usuarioServices = usuarioService;
-        }
+			_buscaService = buscaService;
+		}
 
         // GET: Chamados
         public async Task<IActionResult> Index()
@@ -103,6 +108,8 @@ namespace RelProd.Models
         {
 
 
+			chamados.Data = DateTime.Today;
+			chamados.Hora = DateTime.Now;
 			
 
 			if (ModelState.IsValid)
@@ -112,7 +119,9 @@ namespace RelProd.Models
                 return RedirectToAction(nameof(Index));
 			
             }
-            return View(chamados);
+			
+
+			return View(chamados);
         }
 
         // GET: Chamados/Edit/5
@@ -129,6 +138,7 @@ namespace RelProd.Models
                 return NotFound();
             }
 
+			
 
 			var TipoStatus = new List<SelectListItem>();
 
@@ -143,7 +153,7 @@ namespace RelProd.Models
 				TipoStatus.Add(new SelectListItem { Text = Enum.GetName(typeof(Status), i), Value = i.ToString() });
 			}
 			ViewBag.TipoStatus = TipoStatus;
-
+			
 			
 
 			
@@ -252,9 +262,12 @@ namespace RelProd.Models
             return _context.Chamados.Any(e => e.Id == id);
         }
 
-		public IActionResult Relatorio()
+		public async Task <IActionResult> Relatorio ( DateTime? minDate , DateTime maxDate )
 		{
-			return View();
+
+			var result = await _buscaService.FindByDateAsync(minDate, maxDate);
+			return View(result);
+	
 		}
     }
 }

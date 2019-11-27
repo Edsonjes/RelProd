@@ -15,13 +15,17 @@ namespace RelProd.Models
 		public int Id { get; set; }
 		public Status Status { get; set; } 
 		 public string Setor { get; set; }
-		//public ICollection <Usuarios> Responsavel { get; set; } 
+		
 		public Usuarios Responsavel { get; set; }
-		public Nullable<int> ResponsavelId { get; set; } 
+		public Nullable<int> ResponsavelId { get; set; }
+
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-		public DateTime Data { get; set; }
+
+
+		public DateTime? Data { get; set; }
+
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
-		public DateTime Hora { get; set; }
+		public DateTime? Hora { get; set; }
 	   public string Solicitante { get; set; }
 		public string Descricao { get; set; }
 		
@@ -37,7 +41,7 @@ namespace RelProd.Models
 			Id = id;
 			Status = status;
 			Setor = setor;
-		    Data = data;
+			Data = data;
 			Hora = hora;
 			Solicitante = solicitante;
 			Descricao = descricao;
