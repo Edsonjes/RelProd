@@ -15,11 +15,12 @@ namespace RelProd.Services
 		{
 			this.ctx = ctx;
 		}
-		 public async Task<List <Chamados>> FindByDateAsync( DateTime? minDate, DateTime? maxDate)
+		 public async Task<List <Chamados>> FindByDateAsync( DateTime? minDate, DateTime? maxDate )
 		{
 			
 
 			var result = from obj in ctx.Chamados select obj;
+			
 
 			if (minDate.HasValue)
 			{
@@ -33,6 +34,8 @@ namespace RelProd.Services
 			return await result
 				.OrderByDescending (x => x.Data)
 				.ToListAsync();
+
+		
 
 		}
 

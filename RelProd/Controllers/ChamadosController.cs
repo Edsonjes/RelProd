@@ -267,6 +267,8 @@ namespace RelProd.Models
 
 			var result = await _buscaService.FindByDateAsync(minDate, maxDate);
 			return View(result);
+
+			
 	
 		}
     }
