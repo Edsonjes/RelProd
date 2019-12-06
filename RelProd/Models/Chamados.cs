@@ -24,6 +24,9 @@ namespace RelProd.Models
 
 		public DateTime? Data { get; set; }
 
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+		public DateTime DataAbertura { get; set; }
+
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
 		public DateTime? Hora { get; set; }
 	   public string Solicitante { get; set; }
@@ -36,11 +39,12 @@ namespace RelProd.Models
 			
 		}
 
-		public Chamados(int id, Status status, Usuarios usuario , string setor, DateTime data, DateTime hora, string solicitante, string descricao)
+		public Chamados(int id, Status status, Usuarios usuario , string setor, DateTime dataAbertura, DateTime data, DateTime hora, string solicitante, string descricao)
 		{
 			Id = id;
 			Status = status;
 			Setor = setor;
+			DataAbertura = dataAbertura;
 			Data = data;
 			Hora = hora;
 			Solicitante = solicitante;

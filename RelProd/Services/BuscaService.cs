@@ -34,8 +34,7 @@ namespace RelProd.Services
 			return await result
 				.OrderByDescending (x => x.Data)
 				.ToListAsync();
-
-		
+				
 
 		}
 

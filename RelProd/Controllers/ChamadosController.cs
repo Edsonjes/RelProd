@@ -104,7 +104,7 @@ namespace RelProd.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Status,Setor,Responsavel,Data,Hora,Solicitante,Descricao")] Chamados chamados)
+        public async Task<IActionResult> Create([Bind("Id,Status,Setor,Responsavel,DataAbertura,Data,Hora,Solicitante,Descricao")] Chamados chamados)
         {
 
 
@@ -191,7 +191,7 @@ namespace RelProd.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,ResponsavelId,Data,Hora,Solicitante,Descricao")] Chamados chamados)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,Setor,DataAbertura,ResponsavelId,Data,Hora,Solicitante,Descricao")] Chamados chamados)
         {
             if (id != chamados.Id)
             {
