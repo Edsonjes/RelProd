@@ -9,7 +9,8 @@ using RelProd.Models;
 using RelProd.Models.Enuns;
 using RelProd.Controllers;
 using RelProd.Services;
-
+using ClosedXML.Excel;
+using OfficeOpenXml;
 
 namespace RelProd.Models
 {
@@ -265,11 +266,18 @@ namespace RelProd.Models
 		public async Task <IActionResult> Relatorio ( DateTime? minDate , DateTime maxDate )
 		{
 
-			var result = await _buscaService.FindByDateAsync(minDate, maxDate);
+				var result = await _buscaService.FindByDateAsync(minDate, maxDate);
 			return View(result);
 
+
+			ExcelPackage pck = new ExcelPackage();
+			ExcelWorksheets ws = pck.Workbook.Worksheets.Add("result");
+
+			ws.Cells["A1"].Valus
+
 			
-	
+
+
 		}
     }
 }

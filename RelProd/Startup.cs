@@ -19,12 +19,17 @@ namespace RelProd
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration  , IHostingEnvironment env)
 		{
 			Configuration = configuration;
 
+			string sAppPath = env.ContentRootPath; //pasta base da aplicação
+			string swwwRootPath = env.WebRootPath; //wwwroot folder pasta 
 		
 		}
+
+
+		
 
 		public IConfiguration Configuration { get; }
 

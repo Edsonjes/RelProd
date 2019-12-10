@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using RelProd.Models;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace RelProd.Services
 {
@@ -11,16 +10,16 @@ namespace RelProd.Services
 	{
 		private readonly RelProdContext ctx;
 
-		public  BuscaService (RelProdContext ctx)
+		public BuscaService(RelProdContext ctx)
 		{
 			this.ctx = ctx;
 		}
-		 public async Task<List <Chamados>> FindByDateAsync( DateTime? minDate, DateTime? maxDate )
+		public async Task<List<Chamados>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
 		{
-			
+
 
 			var result = from obj in ctx.Chamados select obj;
-			
+
 
 			if (minDate.HasValue)
 			{
@@ -32,11 +31,7 @@ namespace RelProd.Services
 			}
 
 			return await result
-				.OrderByDescending (x => x.Data)
+				.OrderByDescending(x => x.Data)
 				.ToListAsync();
-				
-
 		}
-
-	}
 }
