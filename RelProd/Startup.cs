@@ -53,6 +53,7 @@ namespace RelProd
 			services.AddSession();
 			services.AddScoped<UsuarioServices>();
 			services.AddScoped<BuscaService>();
+			services.AddScoped<ExportService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

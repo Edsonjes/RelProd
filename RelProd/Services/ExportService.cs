@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RelProd.Models;
 using System.Threading.Tasks;
+using RelProd.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace RelProd.Services
 {
-	public class BuscaService
+	public class ExportService
 	{
 		private readonly RelProdContext ctx;
 
-		public BuscaService(RelProdContext ctx)
+		public ExportService ( RelProdContext _ctx)
 		{
-			this.ctx = ctx;
+			ctx = _ctx;
 		}
+
 		public async Task<List<Chamados>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
 		{
 
@@ -37,4 +38,3 @@ namespace RelProd.Services
 		}
 	}
 }
-

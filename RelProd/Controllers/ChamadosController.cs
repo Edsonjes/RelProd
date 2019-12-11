@@ -19,14 +19,16 @@ namespace RelProd.Models
         private readonly RelProdContext _context;
 		private readonly UsuarioServices _usuarioServices;
 		private readonly BuscaService _buscaService;
+		private readonly ExportService _exportService;
 
 	
 
-		public ChamadosController(RelProdContext context, UsuarioServices usuarioService, BuscaService buscaService)
+		public ChamadosController(RelProdContext context, UsuarioServices usuarioService, BuscaService buscaService, ExportService exportService)
         {
             _context = context;
 			_usuarioServices = usuarioService;
 			_buscaService = buscaService;
+			_exportService = exportService;
 		}
 
         // GET: Chamados
@@ -267,17 +269,61 @@ namespace RelProd.Models
 		{
 
 				var result = await _buscaService.FindByDateAsync(minDate, maxDate);
+
+
+
 			return View(result);
-
-
-			ExcelPackage pck = new ExcelPackage();
-			ExcelWorksheets ws = pck.Workbook.Worksheets.Add("result");
-
-			ws.Cells["A1"].Valus
-
-			
+	
 
 
 		}
-    }
+
+		public async Task<ActionResult> ExcelExport(DateTime? minDate, DateTime maxDate)
+		{
+			
+
+			var resultExcel =  await _exportService.FindByDateAsync(minDate, maxDate); 
+
+
+
+
+			string[] col_names = new string[]
+			{
+				"Solicitante",
+				"Data da Criação",
+				"Descriçao"
+			};
+			byte[] resultado;
+
+			using (var package = new ExcelPackage())
+			{
+				var worksheet = package.Workbook.Worksheets.Add("Atendimento");
+
+
+				for (int i = 0; i < col_names.Length; i++)
+				{
+					worksheet.Cells[1, i + 1].Style.Font.Size = 14; //font da celula
+					worksheet.Cells[1, i + 1].Value = col_names[i]; //valor da celula
+					worksheet.Cells[1, i + 1].Style.Font.Bold = true;
+				}
+				int row = 3;
+
+				foreach (Chamados item in result)
+				{
+					for (int col = 1; col <= 3; col++)
+					{
+						worksheet.Cells[row, col].Style.Font.Size = 12;
+
+					}
+
+					worksheet.Cells[row, 1].Value = item.Solicitante;
+					worksheet.Cells[row, 2].Value = item.DataAbertura;
+					worksheet.Cells[row, 3].Value = item.Descricao;
+
+				}
+				resultado = package.GetAsByteArray();
+			}
+			return File(resultado, "application/vnd.ms-excel", "relatorio.xls");
+		}
+	}
 }
