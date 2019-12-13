@@ -16,21 +16,14 @@ namespace RelProd.Services
 			ctx = _ctx;
 		}
 
-		public async Task<List<Chamados>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
+		public async Task<List<Chamados>> FindByDateAsync(DateTime? dataMin, DateTime? maxDate)
 		{
 
 
-			var result = from obj in ctx.Chamados select obj;
+			var result = ctx.Chamados.Where(x => x.DataAbertura >= dataMin);
 
 
-			if (minDate.HasValue)
-			{
-				result = result.Where(x => x.Data >= minDate.Value);
-			}
-			if (maxDate.HasValue)
-			{
-				result = result.Where(x => x.Data <= maxDate.Value);
-			}
+
 
 			return await result
 				.OrderByDescending(x => x.Data)
