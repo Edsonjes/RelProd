@@ -290,7 +290,7 @@ namespace RelProd.Models
 		public async Task<ActionResult> ExcelExport(DateTime? minDate, DateTime maxDate)
 		{
 
-			var result = await _exportService.FindByDateAsync(minDate, maxDate);
+			var vm = rela
 
 
 
