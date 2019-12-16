@@ -267,10 +267,6 @@ namespace RelProd.Models
 		{
 
 
-
-			
-
-
 				var vm = new relatorioVM();
 
 		  
@@ -281,16 +277,15 @@ namespace RelProd.Models
 				return View(vm);
 
 
-
-		
-
 		
 		}
 
-		public async Task<ActionResult> ExcelExport(DateTime? minDate, DateTime maxDate)
+		public async Task<ActionResult> ExcelExport(DateTime? dataMin, DateTime maxDate)
 		{
 
-			var vm = rela
+			var vm = new relatorioVM();
+
+			vm.listChamados = await _exportService.FindByDateAsync(dataMin, maxDate);
 
 
 
@@ -316,7 +311,7 @@ namespace RelProd.Models
 				}
 				int row = 3;
 
-				foreach (Chamados item in result)
+				foreach (Chamados item in vm.listChamados)
 				{
 					for (int col = 1; col <= 3; col++)
 					{
@@ -325,8 +320,10 @@ namespace RelProd.Models
 					}
 
 					worksheet.Cells[row, 1].Value = item.Solicitante;
-					worksheet.Cells[row, 2].Value = item.DataAbertura;
+					worksheet.Cells[row, 2].Value = item.DataAbertura.ToShortDateString();
 					worksheet.Cells[row, 3].Value = item.Descricao;
+
+					row = (row + 1);
 
 				}
 				resultado = package.GetAsByteArray();
