@@ -33,8 +33,10 @@ namespace RelProd.Models
 		public async Task<IActionResult> Index()
 		{
 
-
-			return View(await _context.Chamados.ToListAsync());
+			var Chamado = from c in _context.Chamados select c;
+			Chamado = Chamado.OrderByDescending(c => c.DataAbertura);
+			 
+			return View(await Chamado.ToListAsync());
 
 
 
@@ -292,9 +294,10 @@ namespace RelProd.Models
 
 			string[] col_names = new string[]
 			{
+				"Data",
+				"Setor",
 				"Solicitante",
-				"Data da Criação",
-				"Descriçao"
+				"Descrição"
 			};
 			byte[] resultado;
 
@@ -313,20 +316,22 @@ namespace RelProd.Models
 
 				foreach (Chamados item in vm.listChamados)
 				{
-					for (int col = 1; col <= 3; col++)
+					for (int col = 1; col <= 4; col++)
 					{
 						worksheet.Cells[row, col].Style.Font.Size = 12;
 
 					}
 
-					worksheet.Cells[row, 1].Value = item.Solicitante;
-					worksheet.Cells[row, 2].Value = item.DataAbertura.ToShortDateString();
-					worksheet.Cells[row, 3].Value = item.Descricao;
+					worksheet.Cells[row, 1].Value = item.DataAbertura.ToShortDateString();
+					worksheet.Cells[row, 2].Value = item.Setor;
+					worksheet.Cells[row, 3].Value = item.Solicitante;
+					worksheet.Cells[row, 4].Value = item.Descricao;
+					
 
 					row = (row + 1);
 
 				}
-				resultado = package.GetAsByteArray();
+				resultado = package.GetAsByteArray(); 
 			}
 			return File(resultado, "application/vnd.ms-excel", "relatorio.xls");
 		}
