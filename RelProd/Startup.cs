@@ -54,6 +54,7 @@ namespace RelProd
 			services.AddScoped<UsuarioServices>();
 			services.AddScoped<BuscaService>();
 			services.AddScoped<ExportService>();
+			services.AddScoped<ChamadoService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

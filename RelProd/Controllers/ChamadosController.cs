@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
+
 
 namespace RelProd.Models
 {
@@ -18,25 +20,33 @@ namespace RelProd.Models
 		private readonly UsuarioServices _usuarioServices;
 		private readonly BuscaService _buscaService;
 		private readonly ExportService _exportService;
+		private readonly ChamadoService _ChamadoService;
 
 
 
-		public ChamadosController(RelProdContext context, UsuarioServices usuarioService, BuscaService buscaService, ExportService exportService)
+		public ChamadosController(RelProdContext context, UsuarioServices usuarioService, BuscaService buscaService, ExportService exportService, ChamadoService chamadoService)
 		{
 			_context = context;
 			_usuarioServices = usuarioService;
 			_buscaService = buscaService;
 			_exportService = exportService;
+			_ChamadoService = chamadoService;
 		}
 
 		// GET: Chamados
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? page )
 		{
 
-			var Chamado = from c in _context.Chamados select c;
-			Chamado = Chamado.OrderByDescending(c => c.DataAbertura);
+
+
+			var ListChamados = _ChamadoService.FindAll();
+			int pTamanho = 4;
+			int pNumero = (page ?? 1);
+
+			
+			
 			 
-			return View(await Chamado.ToListAsync());
+			return View(ListChamados.ToPagedListAsync(pTamanho,pNumero));
 
 
 
@@ -271,9 +281,10 @@ namespace RelProd.Models
 
 				var vm = new relatorioVM();
 
-		  
+			 
 
 				vm.listChamados = await _buscaService.FindByDateAsync(dataMin, dataMax);
+			     
 
 
 				return View(vm);

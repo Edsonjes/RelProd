@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<RelProd.Models.Chamados>
+@using X.PagedList
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Demandas</h1>
 
 <p>
 	<a asp-action="Create">Criar uma nova</a> /
-	<a asp-action="Relatorio">Relátorio</a> 
-	
+	<a asp-action="Relatorio">Relátorio</a>
+
 </p>
 <table class="table">
-    <thead>
+	<thead>
 		<tr>
 			<th>
 
@@ -22,7 +23,7 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Setor)
 			</th>
-			
+
 			<th>
 				@Html.DisplayNameFor(model => model.Solicitante)
 			</th>
@@ -34,32 +35,36 @@
 			</th>
 			<th></th>
 		</tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Status)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Setor)
-			</td>
-			
-			<td>
-				@Html.DisplayFor(modelItem => item.Solicitante)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.DataAbertura)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Hora)
-			</td>
-			<td>
-				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-				<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-				<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-			</td>
-		</tr>
-}
-    </tbody>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Status)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Setor)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.Solicitante)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataAbertura)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Hora)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+<div>
+	
+</div>
