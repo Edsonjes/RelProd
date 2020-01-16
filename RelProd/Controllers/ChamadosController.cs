@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using X.PagedList;
+using X.PagedList.Mvc.Core;
 
 
 namespace RelProd.Models
@@ -40,13 +41,13 @@ namespace RelProd.Models
 
 
 			var ListChamados = _ChamadoService.FindAll();
-			int pTamanho = 4;
-			int pNumero = (page ?? 1);
+			int pTamanho = 1;
+			int pNumero = (page ?? 10);
 
 			
 			
 			 
-			return View(ListChamados.ToPagedListAsync(pTamanho,pNumero));
+			return  View(await ListChamados.ToPagedListAsync(pTamanho,pNumero));
 
 
 

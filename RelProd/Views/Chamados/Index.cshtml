@@ -1,5 +1,7 @@
-﻿@model IEnumerable<RelProd.Models.Chamados>
+﻿@model X.PagedList.IPagedList<RelProd.Models.Chamados>
 @using X.PagedList
+@using X.PagedList.Mvc.Core
+
 
 @{
 	ViewData["Title"] = "Index";
@@ -17,21 +19,21 @@
 		<tr>
 			<th>
 
-				@Html.DisplayNameFor(model => model.Status)
+				@Html.DisplayName("Status")
 
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Setor)
+				@Html.DisplayName("Setor")
 			</th>
 
 			<th>
-				@Html.DisplayNameFor(model => model.Solicitante)
+				@Html.DisplayName("Solicitante")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.DataAbertura)
+				@Html.DisplayName("DataAbertura")
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Hora)
+				@Html.DisplayName("Hora")
 			</th>
 			<th></th>
 		</tr>
@@ -62,9 +64,16 @@
 					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 				</td>
 			</tr>
-		}
+			
+			
+ }
 	</tbody>
 </table>
+<br />
+Página @Model.PageNumber de  @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new {pagina = page }))
 <div>
-	
+
+
 </div>
