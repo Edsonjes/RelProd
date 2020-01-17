@@ -41,13 +41,13 @@ namespace RelProd.Models
 
 
 			var ListChamados = _ChamadoService.FindAll();
-			int pTamanho = 1;
-			int pNumero = (page ?? 10);
+			int pTamanho = 10;
+			int pNumero = (page ?? 1);
 
 			
 			
 			 
-			return  View(await ListChamados.ToPagedListAsync(pTamanho,pNumero));
+			return  View(await ListChamados.ToPagedListAsync(pNumero, pTamanho));
 
 
 

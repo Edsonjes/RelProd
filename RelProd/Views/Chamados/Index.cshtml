@@ -72,7 +72,7 @@
 <br />
 Página @Model.PageNumber de  @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new {pagina = page }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new {page = page }))
 <div>
 
 
